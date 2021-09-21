@@ -10,8 +10,8 @@ def main():
     totalFinal = 0
     totalFull = 0
     
-    iterations = 1 # desired number of mazes to generate
-    density = 0.33 # likliehood of a cell being blocked
+    iterations = 100 # desired number of mazes to generate
+    density = 0.0 # likliehood of a cell being blocked
 
     for i in range(iterations):
         m = Maze(101, density)
@@ -29,6 +29,8 @@ def main():
         totalCells += cells
         totalFinal += len(resU)
         totalFull += len(resK)
+        
+        print(i)
 
     print(totalTraj/iterations)
     print(totalCells/iterations)
