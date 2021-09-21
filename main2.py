@@ -11,7 +11,7 @@ def main():
     totalFull = 0
     
     iterations = 100 # desired number of mazes to generate
-    density = 0.16 # likliehood of a cell being blocked
+    density = 0.33 # likliehood of a cell being blocked
 
     for i in range(iterations):
         m = Maze(101, density)
