@@ -11,7 +11,7 @@ def main():
     totalFull = 0
 
     for i in range(10):
-        m = Maze(101, 0.25)
+        m = Maze(101, 0.00)
 
         resK = ast.AStarKnown(m, (0, 0), (100, 100), ast.mDistance, True)
         resU, trajectory, cells = ast.AStarUnknown(m, (0, 0), (100, 100), ast.mDistance, True)

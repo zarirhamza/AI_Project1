@@ -236,22 +236,23 @@ def checkPath(path, knownMaze, maze, gn):
 
     # iterate through path adding information when necessary
     for i in range(len(path)):
+        global trajectoryUnknown
+        trajectoryUnknown += 1
 
         if maze.maze[path[i][1]][path[i][0]] == 1:  # if blockage found, update knownMaze and stop path
             knownMaze.maze[path[i][1]][path[i][0]] = 1
             return path[i - 1]
-        else:  # if no blockage found, update knownMaze with neighbors info
 
-            global trajectoryUnknown
-            trajectoryUnknown += 1
 
-            for direction in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
-                newxc = direction[0] + path[i][0]
-                newyc = direction[1] + path[i][1]
-                if newxc >= maze.dim or newxc < 0 or newyc >= maze.dim or newyc < 0:  # Legal within bounds
-                    continue
-                else:
-                    knownMaze.maze[newyc][newxc] = maze.maze[newyc][newxc]
+        # else:  # if no blockage found, update knownMaze with neighbors info
+        # Comment out else statement to do Q7 and swap trajectory to up in the loop
+        #    for direction in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+        #        newxc = direction[0] + path[i][0]
+        #        newyc = direction[1] + path[i][1]
+        #        if newxc >= maze.dim or newxc < 0 or newyc >= maze.dim or newyc < 0:  # Legal within bounds
+        #            continue
+        #        else:
+        #            knownMaze.maze[newyc][newxc] = maze.maze[newyc][newxc]
 
     # If finished path, means path from Start to Goal is found and return True
     return path[-1]
