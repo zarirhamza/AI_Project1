@@ -10,12 +10,19 @@ def main():
     totalFinal = 0
     totalFull = 0
     
-    iterations = 10
+    iterations = 1 # desired number of mazes to generate
+    density = 0.33 # likliehood of a cell being blocked
 
     for i in range(iterations):
-        m = Maze(101, 0.00)
+        m = Maze(101, density)
+        
+        solvable = ast.DFSSolve(m, (0,0), (100,100)) # use DFS to see if solution exists
+        while ~(solvable): # if not solvable regenerate till it is
+            m = Maze(101,density)
+            if(ast.DFSSolve(m, (0,0), (100,100))): # break when solvable
+                break
 
-        resK = ast.AStarKnown(m, (0, 0), (100, 100), ast.mDistance, True)
+        resK = ast.AStarKnown(m, (0, 0), (100, 100), ast.mDistance, True)   
         resU, trajectory, cells = ast.AStarUnknown(m, (0, 0), (100, 100), ast.mDistance, True)
 
         totalTraj += trajectory
