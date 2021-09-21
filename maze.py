@@ -30,16 +30,6 @@ class Maze:
         print()
 
     """
-    set - Sets a value of the maze to a given val
-
-    :param coord: Coordinate of square to be set
-    :param val: Value to set coordinate
-    """
-
-    def set(self, coord, val):
-        self.maze[coord[1]][coord[0]] = val
-
-    """
     findNeighbors - Determines all valid neighbors for passed in Loc
     :param loc: Location to find neighbors of
     :return: List of valid neighbors

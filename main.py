@@ -5,16 +5,29 @@ from maze import Maze
 
 
 def main():
+    totalTraj = 0
+    totalCells = 0
+    totalFinal = 0
+    totalFull = 0
 
-    # Demonstrate maze solving works
-    m = Maze(5, 0.3)
-    m.plotMaze()
-    for coord in ast.AStar(m, (0, 0), (4, 4), ast.mDistance, True):
-        m.set(coord, 'X')
-    m.plotMaze()
+    for i in range(10):
+        m = Maze(101, 0.25)
+
+        resK = ast.AStarKnown(m, (0, 0), (100, 100), ast.mDistance, True)
+        resU, trajectory, cells = ast.AStarUnknown(m, (0, 0), (100, 100), ast.mDistance, True)
+
+        totalTraj += trajectory
+        totalCells += cells
+        totalFinal += len(resU)
+        totalFull += len(resK)
+
+    print(totalTraj/10)
+    print(totalCells/10)
+    print(totalFinal/10)
+    print(totalFull/10)
 
     # Q4
-
+    comment = """
     timeA = 0
     timeB = 0
     timeD = 0
@@ -36,7 +49,7 @@ def main():
         timeB += (end - start)
 
         start = time.time()
-        res = ast.AStar(m, (0, 0), (100, 100), ast.eDistance, False)
+        res = ast.AStarKnown(m, (0, 0), (100, 100), ast.eDistance, False)
         end = time.time()
         timeA += (end - start)
 
@@ -61,23 +74,23 @@ def main():
         m = Maze(101, 0.3)
 
         start = time.time()
-        ast.AStar(m, (0, 0), (100, 100), ast.eDistance, False)
+        ast.AStarKnown(m, (0, 0), (100, 100), ast.eDistance, False)
         end = time.time()
         timeE += (end - start)
 
         start = time.time()
-        ast.AStar(m, (0, 0), (100, 100), ast.mDistance, False)
+        ast.AStarKnown(m, (0, 0), (100, 100), ast.mDistance, False)
         end = time.time()
         timeM += (end - start)
 
         start = time.time()
-        ast.AStar(m, (0, 0), (100, 100), ast.cDistance, False)
+        ast.AStarKnown(m, (0, 0), (100, 100), ast.cDistance, False)
         end = time.time()
         timeC += (end - start)
 
     print(timeE / 100)
     print(timeM / 100)
-    print(timeC / 100)
+    print(timeC / 100) """
 
 
 if __name__ == "__main__":
