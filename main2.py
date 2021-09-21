@@ -11,7 +11,7 @@ def main():
     totalFull = 0
     
     iterations = 100 # desired number of mazes to generate
-    density = 0.0 # likliehood of a cell being blocked
+    density = 0.16 # likliehood of a cell being blocked
 
     for i in range(iterations):
         m = Maze(101, density)
@@ -32,10 +32,11 @@ def main():
         
         print(i)
 
-    print(totalTraj/iterations)
-    print(totalCells/iterations)
-    print(totalFinal/iterations)
-    print(totalFull/iterations)
+    print("Density = " + str(density))
+    print("Average Trajectory = " + str(totalTraj/iterations))
+    print("Average Cells Processed = " + str(totalCells/iterations))
+    print("Path Length Final Gridworld = " + str(totalFinal/iterations))
+    print("Path Length Full Gridworld = " + str(totalFull/iterations))
 
 
 if __name__ == "__main__":
