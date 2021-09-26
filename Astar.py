@@ -1,11 +1,11 @@
 # A* algorithm along with helper methods
-
 import numpy as np
 import heapq as hq
 import helper as hp
 import visualize as vis
 from maze import Maze
 
+# global variables to use for tracking trajectory and cells processed
 trajectoryUnknown = 0
 cellsProcessed = 0
 
@@ -16,8 +16,6 @@ mDistance - calculates manhattan distance from goal
 :param distances: array storing distances spaces are from the start
 :return: priority number based on speed
 """
-
-
 def mDistance(x, G, distances):
     xCoord = x[0]
     yCoord = x[1]
@@ -27,7 +25,6 @@ def mDistance(x, G, distances):
     h = (abs(xdist) + abs(ydist)) * 1.6  # calculates weighted heuristic
     return distances[yCoord][xCoord][0] + h
 
-
 """
 cDistance - calculates Chebyshev distance from goal
 :param x: point whose priority will be evaluated
@@ -35,8 +32,6 @@ cDistance - calculates Chebyshev distance from goal
 :param distances: array storing distances spaces are from the start
 :return: priority number based on speed
 """
-
-
 def cDistance(x, G, distances):
     xCoord = x[0]
     yCoord = x[1]
@@ -45,7 +40,6 @@ def cDistance(x, G, distances):
     h = max(abs(xdist), abs(ydist))  # calculates heuristic
     return distances[yCoord][xCoord][0] + h
 
-
 """
 eDistance - calculates euclidean distance from goal
 :param x: point whose priority will be evaluated
@@ -53,8 +47,6 @@ eDistance - calculates euclidean distance from goal
 :param distances: array storing distances spaces are from the start
 :return: priority number based on speed
 """
-
-
 def eDistance(x, G, distances):
     xCoord = x[0]
     yCoord = x[1]
@@ -62,7 +54,6 @@ def eDistance(x, G, distances):
     ydist = G[1] - yCoord
     h = np.sqrt((pow(xdist, 2)) + pow(ydist, 2))  # calculates heuristic
     return distances[yCoord][xCoord][0] + h
-
 
 """
 AStarKnown - Performs A* search on maze with given parameters
@@ -74,8 +65,6 @@ AStarKnown - Performs A* search on maze with given parameters
 :param longReturn: Flag to determine if entire path is returned or only T/F solvable
 :return: List of coords with path to goal if possible OR T/F if path exists
 """
-
-
 def AStarKnown(maze, S, G, heuristic, longReturn):
     start = (0, S[0], S[1])  # store each coordinate as (f(n),x,y)
     fringe = []
@@ -100,7 +89,6 @@ def AStarKnown(maze, S, G, heuristic, longReturn):
         return False
     return True
 
-
 """
 helperAStarKnown - A* Child Generation and Path Checking
 :param maze: Grid to solve with blocked/unblocked cells
@@ -109,8 +97,6 @@ helperAStarKnown - A* Child Generation and Path Checking
 :param fringe: Priority Queue of different cells
 :param gn: Matrix containing distances of all cells and parents
 """
-
-
 def helperAStar(maze, G, heuristic, fringe, gn):
     if not fringe:  # check for empty fringe meaning no remaining paths to check
         return
@@ -126,7 +112,6 @@ def helperAStar(maze, G, heuristic, fringe, gn):
         prev = x
     return
 
-
 """
 createChildrenKnown - Generates children of given point and stores in (gn,x,y) form in fringe when needed 
 :param x: Point to generate children
@@ -136,8 +121,6 @@ createChildrenKnown - Generates children of given point and stores in (gn,x,y) f
 :param fringe: Priority Queue of different cells
 :param gn: Matrix containing distances of all cells and parents
 """
-
-
 def createChildren(x, maze, G, heuristic, fringe, gn):
     xc = x[1]
     yc = x[2]
@@ -158,7 +141,6 @@ def createChildren(x, maze, G, heuristic, fringe, gn):
             hq.heappush(fringe, item)
     return
 
-
 """
 AStarUnknown - Performs A* search on maze with given parameters
 *Assumes that all of the maze is not known
@@ -169,8 +151,6 @@ AStarUnknown - Performs A* search on maze with given parameters
 :param longReturn: Flag to determine if entire path is returned or only T/F solvable
 :return: List of coords with path to goal if possible OR T/F if path exists
 """
-
-
 def AStarUnknown(maze, S, G, heuristic, longReturn):
     # Initialize open array to represent information known at the time
     knownMaze = Maze(maze.dim, 0)
@@ -258,7 +238,6 @@ def checkPath(path, knownMaze, maze, gn):
     # If finished path, means path from Start to Goal is found and return True
     return path[-1]
 
-
 """
 createPath - Create path given the matrix with reversible path from G
 :param maze: Grid to solve with blocked/unblocked cells
@@ -267,8 +246,6 @@ createPath - Create path given the matrix with reversible path from G
 :param gn: Matrix containing distances of all cells and parents
 :return: the path given as a list
 """
-
-
 def createPath(maze, S, G, gn):
     # two arrays, one to store the directions in reverse, and one to give the actual directions
     path = [(maze.dim - 1, maze.dim - 1)]
@@ -303,15 +280,12 @@ def createPath(maze, S, G, gn):
 
     return list(reversed(path))
 
-
 """
 isReachableDFS - Checks if G is reachable from S using DFS
 :param S: tuple representing (S)tarting square
 :param G: tuple representing (G)oal square
 :return: boolean stating whether G is reachable from S
 """
-
-
 def DFSSolve(m, S, G):
     visited = []
     stack = [S]
@@ -325,15 +299,12 @@ def DFSSolve(m, S, G):
             stack.extend(m.findNeighbors(v))
     return False
 
-
 """
     isReachableDFS - Checks if G is reachable from S using DFS
     :param S: tuple representing (S)tarting square
     :param G: tuple representing (G)oal square
     :return: boolean stating whether G is reachable from S
     """
-
-
 def BFSSolve(m, S, G):
     visited = []
     queue = [S]
