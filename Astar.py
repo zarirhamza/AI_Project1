@@ -23,7 +23,8 @@ def mDistance(x, G, distances):
     yCoord = x[1]
     xdist = G[0] - xCoord
     ydist = G[1] - yCoord
-    h = abs(xdist) + abs(ydist)  # calculates heuristic
+    # h = abs(xdist) + abs(ydist)  # calculates heuristic (comment out for #9)
+    h = (abs(xdist) + abs(ydist)) * 1.6  # calculates weighted heuristic
     return distances[yCoord][xCoord][0] + h
 
 
@@ -244,15 +245,15 @@ def checkPath(path, knownMaze, maze, gn):
             return path[i - 1]
 
 
-        # else:  # if no blockage found, update knownMaze with neighbors info
+        else:  # if no blockage found, update knownMaze with neighbors info
         # Comment out else statement to do Q7 and swap trajectory to up in the loop
-        #    for direction in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
-        #        newxc = direction[0] + path[i][0]
-        #        newyc = direction[1] + path[i][1]
-        #        if newxc >= maze.dim or newxc < 0 or newyc >= maze.dim or newyc < 0:  # Legal within bounds
-        #            continue
-        #        else:
-        #            knownMaze.maze[newyc][newxc] = maze.maze[newyc][newxc]
+            for direction in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                newxc = direction[0] + path[i][0]
+                newyc = direction[1] + path[i][1]
+                if newxc >= maze.dim or newxc < 0 or newyc >= maze.dim or newyc < 0:  # Legal within bounds
+                    continue
+                else:
+                    knownMaze.maze[newyc][newxc] = maze.maze[newyc][newxc]
 
     # If finished path, means path from Start to Goal is found and return True
     return path[-1]
